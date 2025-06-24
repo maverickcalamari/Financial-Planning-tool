@@ -3,22 +3,14 @@ import { FinancialInputs, AccountBalance, InvestmentOption, DashboardMetrics } f
 import { calculateDashboardMetrics, formatCurrency, formatPercentage } from '../utils/calculations';
 import { LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { TrendingUp, DollarSign, Target, Shield, AlertTriangle, CheckCircle, BarChart3, PieChart as PieChartIcon } from 'lucide-react';
-import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
-export function Header() {
-  return (
-    <header className="flex justify-end p-4">
-      <ThemeSwitcher />
-    </header>
-  );
-}
 interface DashboardProps {
   inputs: FinancialInputs;
   accounts: AccountBalance[];
   projections: InvestmentOption[];
 }
 
-export function Dashboard({ inputs, accounts, projections }: DashboardProps) {
+export function Dashboard({ inputs, accounts, projections, onMetricClick }: DashboardProps & { onMetricClick?: (id: string) => void }) {
   const metrics = calculateDashboardMetrics(accounts, projections, inputs);
   const bestProjection = projections.find(p => p.name.includes('Index Fund')) || projections[0];
   
@@ -67,7 +59,7 @@ export function Dashboard({ inputs, accounts, projections }: DashboardProps) {
     <div className="space-y-6">
       {/* Key Metrics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white">
+        <button onClick={() => onMetricClick?.("totalBalance")} className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white w-full text-left">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-blue-100 text-sm font-medium">Total Balance</p>
@@ -82,7 +74,7 @@ export function Dashboard({ inputs, accounts, projections }: DashboardProps) {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white">
+        <button onClick={() => onMetricClick?.("goalProgress")} className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white w-full text-left">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-green-100 text-sm font-medium">Goal Progress</p>
@@ -97,7 +89,7 @@ export function Dashboard({ inputs, accounts, projections }: DashboardProps) {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white">
+        <button onClick={() => onMetricClick?.("riskLevel")} className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white w-full text-left">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-purple-100 text-sm font-medium">Risk Level</p>
@@ -112,7 +104,7 @@ export function Dashboard({ inputs, accounts, projections }: DashboardProps) {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-6 text-white">
+        <button onClick={() => onMetricClick?.("yearsToGoal")} className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-6 text-white w-full text-left">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-orange-100 text-sm font-medium">Years to Goal</p>
@@ -126,7 +118,7 @@ export function Dashboard({ inputs, accounts, projections }: DashboardProps) {
             </div>
           </div>
         </div>
-      </div>
+      </button>
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

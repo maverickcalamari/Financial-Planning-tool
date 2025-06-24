@@ -1,15 +1,16 @@
-import { useTheme } from "@/hooks/use-theme";
-import { Moon, Sun } from "lucide-react";
+import { useTheme } from '../hooks/useTheme';
+import { Moon, Sun } from 'lucide-react';
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
+  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 
   return (
     <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-2 rounded-md border dark:border-gray-700"
+      onClick={toggleTheme}
+      className="p-2 border rounded-full bg-white dark:bg-gray-800"
     >
-      {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+      {theme === 'dark' ? <Sun className="h-5 w-5 text-yellow-400" /> : <Moon className="h-5 w-5 text-gray-700" />}
     </button>
   );
 }
