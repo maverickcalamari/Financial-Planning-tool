@@ -1,6 +1,4 @@
-# Rewriting `App.tsx` and `Dashboard.tsx` with dark mode toggle, improved navigation, and clean layout
 
-app_tsx_code = """
 import React, { useState, useEffect } from "react";
 import { FinancialInputs, AccountBalance } from "./types/financial";
 import { InputSection } from "./components/InputSection";
@@ -56,7 +54,6 @@ function App() {
     { id: 'inputs', name: 'Parameters', icon: Settings },
     { id: 'accounts', name: 'Accounts', icon: Calculator },
     { id: 'export', name: 'Export', icon: Download },
-    { id: 'inputs', name: 'Theme', icon: Settings }
   ];
 
   const renderContent = () => {
@@ -122,46 +119,3 @@ function App() {
 }
 
 export default App;
-"""
-
-dashboard_tsx_code = """
-import React from "react";
-import { FinancialInputs, AccountBalance } from "../types/financial";
-
-interface Props {
-  inputs: FinancialInputs;
-  accounts: AccountBalance[];
-  projections: number[];
-}
-
-export function Dashboard({ inputs, accounts, projections }: Props) {
-  return (
-    <div>
-      <h2 className="text-2xl font-semibold mb-4">Welcome to your Dashboard</h2>
-      <p className="mb-4 text-gray-600 dark:text-gray-300">
-        Goal: ${inputs.goalAmount.toLocaleString()} | Timeline: {inputs.targetAge - inputs.currentAge} years
-      </p>
-      <div className="grid gap-4 md:grid-cols-2">
-        {accounts.map((account, i) => (
-          <div key={i} className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
-            <h3 className="font-semibold text-lg">{account.name}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Balance: ${account.balance.toLocaleString()}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-"""
-
-# Save both files
-app_path = "/mnt/data/App.tsx"
-dashboard_path = "/mnt/data/Dashboard.tsx"
-
-with open(app_path, "w") as app_file:
-    app_file.write(app_tsx_code)
-
-with open(dashboard_path, "w") as dashboard_file:
-    dashboard_file.write(dashboard_tsx_code)
-
-app_path, dashboard_path
