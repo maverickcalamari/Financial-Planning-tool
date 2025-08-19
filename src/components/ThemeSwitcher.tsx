@@ -1,4 +1,4 @@
-import { useTheme } from '../hooks/useTheme';
+import { useTheme } from './hooks/useTheme';
 import { Moon, Sun } from 'lucide-react';
 
 export function ThemeSwitcher() {
