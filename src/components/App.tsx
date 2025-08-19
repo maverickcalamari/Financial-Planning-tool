@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FinancialInputs, AccountBalance } from "../types/financial";
 import { InputSection } from "./InputSection";
-import AccountsSection from "./AccountsSection";
+import { AccountsSection } from "./AccountsSection"; // ✅ matches your file
 import Dashboard from "./Dashboard";
 import { ExportSection } from "./ExportSection";
 import { generateInvestmentProjections } from "../utils/calculations";
