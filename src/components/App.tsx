@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FinancialInputs, AccountBalance } from "./types/financial";
-import { InputSection } from "./components/InputSection";
+import { InputSection } from "./InputSection";
 import AccountsSection from "./components/AccountsSection";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./Dashboard";
 import { ExportSection } from "./components/ExportSection";
 import { generateInvestmentProjections } from "./utils/calculations";
 import { Calculator, BarChart3, Settings, Download, Menu, X } from "lucide-react";
-import { ThemeSwitcher } from "./components/ThemeSwitcher";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 function App() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'inputs' | 'accounts' | 'export'>('dashboard');
