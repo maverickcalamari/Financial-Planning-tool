@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FinancialInputs, AccountBalance } from "./types/financial";
+import { FinancialInputs, AccountBalance } from "../types/financial";
 import { InputSection } from "./InputSection";
 import AccountsSection from "./AccountsSection";
 import Dashboard from "./Dashboard";
