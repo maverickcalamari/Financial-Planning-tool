@@ -75,7 +75,7 @@ export function Dashboard({ inputs, accounts, projections, onMetricClick }: Dash
         </div>
 
         <button onClick={() => onMetricClick?.("goalProgress")} className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white w-full text-left">
-          <div className="flex items-center justify-between"></button>
+          <div className="flex items-center justify-between"> </div>
             <div>
               <p className="text-green-100 text-sm font-medium">Goal Progress</p>
               <p className="text-2xl font-bold">{metrics.goalProgress.toFixed(1)}%</p>
