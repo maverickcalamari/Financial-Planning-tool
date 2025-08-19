@@ -86,7 +86,10 @@ function App() {
 
       <div className="flex">
         {/* Sidebar */}
-        <aside className={\`fixed lg:static top-0 left-0 h-full bg-white dark:bg-gray-800 shadow-lg lg:shadow-none z-40 transform transition-transform duration-300 \${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 w-64 p-4\`}>
+      <aside
+  className={`fixed lg:static top-0 left-0 h-full bg-white dark:bg-gray-800 shadow-lg lg:shadow-none z-40 transform transition-transform duration-300 ${
+    sidebarOpen ? "translate-x-0" : "-translate-x-full"
+  } lg:translate-x-0 w-64 p-4`}>
           <nav className="space-y-2 mt-8">
             {navigation.map(item => {
               const Icon = item.icon;
