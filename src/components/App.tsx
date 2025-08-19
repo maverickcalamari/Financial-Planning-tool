@@ -4,7 +4,7 @@ import { InputSection } from "./InputSection";
 import AccountsSection from "./AccountsSection";
 import Dashboard from "./Dashboard";
 import { ExportSection } from "./ExportSection";
-import { generateInvestmentProjections } from "./utils/calculations";
+import { generateInvestmentProjections } from "../utils/calculations";
 import { Calculator, BarChart3, Settings, Download, Menu, X } from "lucide-react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 
