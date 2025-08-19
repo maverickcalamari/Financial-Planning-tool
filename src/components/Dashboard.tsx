@@ -72,7 +72,7 @@ export function Dashboard({ inputs, accounts, projections, onMetricClick }: Dash
               <DollarSign className="w-6 h-6" />
             </div>
           </div>
-        </div>
+        
 
         <button onClick={() => onMetricClick?.("goalProgress")} className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white w-full text-left">
           <div className="flex items-center justify-between"> </div>
