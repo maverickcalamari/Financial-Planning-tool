@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useCallback } from "react";
 import { FinancialInputs, AccountBalance } from "../types/financial";
 import { InputSection } from "./InputSection";
 import { AccountsSection } from "./AccountsSection"; // ✅ matches your file
@@ -7,11 +8,13 @@ import { ExportSection } from "./ExportSection";
 import { generateInvestmentProjections } from "../utils/calculations";
 import { Calculator, BarChart3, Settings, Download, Menu, X } from "lucide-react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
+import { CommandPalette } from "./CommandPalette";
 
 function App() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'inputs' | 'accounts' | 'export'>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [focusedMetric, setFocusedMetric] = useState<string | null>(null);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
 
   const [inputs, setInputs] = useState<FinancialInputs>({
     goalAmount: 250000,
@@ -39,6 +42,19 @@ function App() {
     setProjections(generateInvestmentProjections(inputs));
   }, [inputs]);
 
+  // Command palette keyboard shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setCommandPaletteOpen(true);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const handleInputChange = (field: keyof FinancialInputs, value: number) => {
     setInputs(prev => ({ ...prev, [field]: value }));
   };
@@ -60,6 +76,11 @@ function App() {
     setFocusedMetric(metricId);
   };
 
+  const handleNavigate = useCallback((tab: string) => {
+    setActiveTab(tab as any);
+    setSidebarOpen(false);
+  }, []);
+
   const navigation = [
     { id: 'dashboard', name: 'Dashboard', icon: BarChart3 },
     { id: 'inputs', name: 'Parameters', icon: Settings },
@@ -70,7 +91,13 @@ function App() {
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
-        return <Dashboard inputs={inputs} accounts={accounts} projections={projections} onMetricClick={handleMetricClick} />;
+        return <Dashboard 
+          inputs={inputs} 
+          accounts={accounts} 
+          projections={projections} 
+          onMetricClick={handleMetricClick}
+          onInputChange={handleInputChange}
+        />;
       case 'inputs':
         return <InputSection inputs={inputs} onInputChange={handleInputChange} />;
       case 'accounts':
@@ -83,19 +110,27 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
-      <div className="flex items-center justify-between px-4 py-3 border-b bg-white dark:bg-gray-800 dark:border-gray-700">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--bg-canvas)', color: 'var(--text-primary)' }}>
+      <div className="flex items-center justify-between px-4 py-3 border-b" style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-muted)' }}>
         <div className="flex items-center gap-3">
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden">
             {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
           <h1 className="text-xl font-bold capitalize">{activeTab}</h1>
         </div>
-        <ThemeSwitcher />
+        <div className="flex items-center space-x-3">
+          <button
+            onClick={() => setCommandPaletteOpen(true)}
+            className="text-sm text-secondary hover:text-primary transition-colors"
+          >
+            ⌘K
+          </button>
+          <ThemeSwitcher />
+        </div>
       </div>
 
       <div className="flex">
-        <aside className={`fixed lg:static top-0 left-0 h-full bg-white dark:bg-gray-800 shadow-lg lg:shadow-none z-40 transform transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 w-64 p-4`}>
+        <aside className={`fixed lg:static top-0 left-0 h-full shadow-lg lg:shadow-none z-40 transform transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 w-64 p-4`} style={{ backgroundColor: 'var(--bg-surface)' }}>
           <nav className="space-y-2 mt-8">
             {navigation.map(item => {
               const Icon = item.icon;
@@ -108,9 +143,10 @@ function App() {
                   }}
                   className={`flex items-center gap-3 px-4 py-2 rounded-lg w-full text-left ${
                     activeTab === item.id
-                      ? "bg-blue-500 text-white"
-                      : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                      ? "text-white"
+                      : "hover:bg-surface-alt transition-colors"
                   }`}
+                  style={activeTab === item.id ? { backgroundColor: 'var(--accent-primary)' } : { color: 'var(--text-primary)' }}
                 >
                   <Icon className="h-5 w-5" />
                   {item.name}
@@ -120,10 +156,16 @@ function App() {
           </nav>
         </aside>
 
-        <main className="flex-1 p-4 lg:ml-64">
+        <main className="flex-1 p-4">
           {renderContent()}
         </main>
       </div>
+
+      <CommandPalette
+        isOpen={commandPaletteOpen}
+        onClose={() => setCommandPaletteOpen(false)}
+        onNavigate={handleNavigate}
+      />
     </div>
   );
 }

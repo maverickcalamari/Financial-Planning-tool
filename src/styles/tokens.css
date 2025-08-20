@@ -1,0 +1,136 @@
+/* Design Tokens - Power BI Dark Theme */
+:root {
+  /* Background tokens */
+  --bg-canvas: #0B0F17;
+  --bg-surface: #111827;
+  --bg-surface-alt: #0F1623;
+  
+  /* Border tokens */
+  --border-muted: #1F2937;
+  
+  /* Text tokens */
+  --text-primary: #E5E7EB;
+  --text-secondary: #9CA3AF;
+  
+  /* Accent tokens */
+  --accent-primary: #2F81F7;
+  --accent-glow: rgba(96, 165, 250, 0.2);
+  
+  /* Status tokens */
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  
+  /* Shadows */
+  --shadow-card: 0 6px 18px rgba(0, 0, 0, 0.45);
+  --shadow-focus: 0 0 0 1px var(--accent-primary), 0 0 0 6px var(--accent-glow);
+  
+  /* Radii */
+  --radius-card: 14px;
+  --radius-input: 10px;
+  
+  /* Spacing */
+  --grid-gutter: 16px;
+  --section-gap: 20px;
+}
+
+/* Light theme overrides (for theme switching) */
+[data-theme="light"] {
+  --bg-canvas: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-surface-alt: #F1F5F9;
+  --border-muted: #E2E8F0;
+  --text-primary: #1E293B;
+  --text-secondary: #64748B;
+  --shadow-card: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Global dark theme application */
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Typography scale */
+.text-kpi {
+  font-size: 2.5rem; /* 40px */
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.text-kpi-label {
+  font-size: 0.75rem; /* 12px */
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+}
+
+/* Card styling */
+.card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.card-hover {
+  transition: all 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-focus);
+}
+
+/* Input styling */
+.input {
+  background-color: var(--bg-surface-alt);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-input);
+  color: var(--text-primary);
+}
+
+.input:focus {
+  box-shadow: var(--shadow-focus);
+  border-color: var(--accent-primary);
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: white;
+  border-radius: var(--radius-input);
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: #2563EB;
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* Focus ring for accessibility */
+*:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-surface-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563EB;
+}
