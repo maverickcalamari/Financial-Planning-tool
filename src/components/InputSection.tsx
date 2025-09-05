@@ -24,18 +24,18 @@ export function InputSection({ inputs, onInputChange }: InputSectionProps) {
   ];
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6">
-      <h2 className="text-xl font-semibold text-gray-800 mb-6">Financial Parameters</h2>
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
+      <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-6">Financial Parameters</h2>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-6">
-          <h3 className="text-lg font-medium text-gray-700 flex items-center space-x-2">
+          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300 flex items-center space-x-2">
             <span>💼</span>
             <span>Basic Information</span>
           </h3>
           {inputFields.map(field => (
             <div key={field.key} className="space-y-3">
-              <label className="block text-sm font-medium text-gray-600 flex items-center space-x-2">
+              <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 flex items-center space-x-2">
                 <span>{field.icon}</span>
                 <span>{field.label}</span>
               </label>
@@ -47,11 +47,11 @@ export function InputSection({ inputs, onInputChange }: InputSectionProps) {
                   min={field.min}
                   max={field.max}
                   step={field.step}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 dark:bg-gray-700 hover:bg-white dark:hover:bg-gray-600 text-gray-900 dark:text-white"
                 />
                 {field.type === 'currency' && (
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <span className="text-gray-500 text-sm">$</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">$</span>
                   </div>
                 )}
               </div>
@@ -60,18 +60,18 @@ export function InputSection({ inputs, onInputChange }: InputSectionProps) {
         </div>
 
         <div className="space-y-6">
-          <h3 className="text-lg font-medium text-gray-700 flex items-center space-x-2">
+          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300 flex items-center space-x-2">
             <span>⚙️</span>
             <span>Rates & Assumptions</span>
           </h3>
           {percentageFields.map(field => (
             <div key={field.key} className="space-y-3">
-              <label className="block text-sm font-medium text-gray-600 flex items-center justify-between">
+              <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <span>{field.icon}</span>
                   <span>{field.label}</span>
                 </div>
-                <span className="text-blue-600 font-semibold bg-blue-50 px-2 py-1 rounded-lg">
+                <span className="text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded-lg">
                   {formatPercentage(inputs[field.key])}
                 </span>
               </label>
@@ -85,7 +85,7 @@ export function InputSection({ inputs, onInputChange }: InputSectionProps) {
                   step={field.step}
                   className="w-full h-3 bg-gradient-to-r from-blue-200 to-blue-400 rounded-lg appearance-none cursor-pointer slider"
                 />
-                <div className="flex justify-between text-xs text-gray-500 mt-1">
+                <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
                   <span>{formatPercentage(field.min)}</span>
                   <span>{formatPercentage(field.max)}</span>
                 </div>

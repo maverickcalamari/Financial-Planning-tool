@@ -76,8 +76,8 @@ export function ScenarioCompare({ baseInputs }: ScenarioCompareProps) {
   const baselineFinal = finalValues.find(s => s.id === 'baseline')?.finalValue || 0;
 
   return (
-    <div className="card p-6">
-      <h3 className="text-lg font-semibold text-primary mb-6 flex items-center">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
         <span className="mr-2">📊</span>
         Scenario Comparison
       </h3>
@@ -89,9 +89,9 @@ export function ScenarioCompare({ baseInputs }: ScenarioCompareProps) {
           const diffPercent = baselineFinal > 0 ? (diff / baselineFinal) * 100 : 0;
           
           return (
-            <div key={scenario.id} className="bg-surface-alt rounded-lg p-4">
+            <div key={scenario.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
               <div className="flex items-center justify-between mb-2">
-                <h4 className="font-medium text-primary">{scenario.name}</h4>
+                <h4 className="font-medium text-gray-900 dark:text-white">{scenario.name}</h4>
                 <div 
                   className="w-3 h-3 rounded-full"
                   style={{ backgroundColor: scenario.color }}
@@ -103,7 +103,7 @@ export function ScenarioCompare({ baseInputs }: ScenarioCompareProps) {
               </div>
               
               {scenario.id !== 'baseline' && (
-                <div className={`text-sm ${diff >= 0 ? 'text-success' : 'text-danger'}`}>
+                <div className={`text-sm ${diff >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                   {diff >= 0 ? '+' : ''}{formatCurrency(diff)}
                   <span className="text-xs ml-1">
                     ({diffPercent >= 0 ? '+' : ''}{diffPercent.toFixed(1)}%)
@@ -119,14 +119,16 @@ export function ScenarioCompare({ baseInputs }: ScenarioCompareProps) {
       <div className="h-80">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="var(--border-muted)" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:stroke-gray-600" />
             <XAxis 
               dataKey="age" 
-              stroke="var(--text-secondary)" 
+              stroke="#6b7280"
+              className="dark:stroke-gray-400"
               fontSize={12}
             />
             <YAxis
-              stroke="var(--text-secondary)"
+              stroke="#6b7280"
+              className="dark:stroke-gray-400"
               fontSize={12}
               tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
             />
@@ -134,11 +136,12 @@ export function ScenarioCompare({ baseInputs }: ScenarioCompareProps) {
               formatter={(value: number, name: string) => [formatCurrency(value), name]}
               labelFormatter={(age) => `Age ${age}`}
               contentStyle={{
-                backgroundColor: 'var(--bg-surface)',
-                border: '1px solid var(--border-muted)',
+                backgroundColor: 'white',
+                border: '1px solid #e5e7eb',
                 borderRadius: '8px',
-                color: 'var(--text-primary)'
+                color: '#1f2937'
               }}
+              className="dark:!bg-gray-800 dark:!border-gray-600 dark:!text-white"
             />
             <Legend />
             {scenarios.map(scenario => (
@@ -159,24 +162,24 @@ export function ScenarioCompare({ baseInputs }: ScenarioCompareProps) {
       {/* Scenario Details */}
       <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
         {scenarios.map(scenario => (
-          <div key={scenario.id} className="bg-surface-alt rounded-lg p-4">
-            <h5 className="font-medium text-primary mb-3">{scenario.name} Assumptions</h5>
+          <div key={scenario.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+            <h5 className="font-medium text-gray-900 dark:text-white mb-3">{scenario.name} Assumptions</h5>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-secondary">Savings Rate:</span>
-                <span className="text-primary">{(scenario.inputs.incomeSavingRate * 100).toFixed(1)}%</span>
+                <span className="text-gray-600 dark:text-gray-400">Savings Rate:</span>
+                <span className="text-gray-900 dark:text-white">{(scenario.inputs.incomeSavingRate * 100).toFixed(1)}%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-secondary">Income Growth:</span>
-                <span className="text-primary">{(scenario.inputs.growthRate * 100).toFixed(1)}%</span>
+                <span className="text-gray-600 dark:text-gray-400">Income Growth:</span>
+                <span className="text-gray-900 dark:text-white">{(scenario.inputs.growthRate * 100).toFixed(1)}%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-secondary">Inflation:</span>
-                <span className="text-primary">{(scenario.inputs.inflationRate * 100).toFixed(1)}%</span>
+                <span className="text-gray-600 dark:text-gray-400">Inflation:</span>
+                <span className="text-gray-900 dark:text-white">{(scenario.inputs.inflationRate * 100).toFixed(1)}%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-secondary">Tax Rate:</span>
-                <span className="text-primary">{(scenario.inputs.taxRate * 100).toFixed(1)}%</span>
+                <span className="text-gray-600 dark:text-gray-400">Tax Rate:</span>
+                <span className="text-gray-900 dark:text-white">{(scenario.inputs.taxRate * 100).toFixed(1)}%</span>
               </div>
             </div>
           </div>

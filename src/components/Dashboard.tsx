@@ -206,19 +206,20 @@ function Dashboard({
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Growth Projection Chart */}
-        <div className="card p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-primary">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Growth Projection by Age
             </h3>
-            <BarChart3 className="w-5 h-5 text-secondary" />
+            <BarChart3 className="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </div>
           <ResponsiveContainer width="100%" height={300}>
             <AreaChart data={projectionChartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--border-muted)" />
-              <XAxis dataKey="age" stroke="var(--text-secondary)" fontSize={12} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:stroke-gray-600" />
+              <XAxis dataKey="age" stroke="#6b7280" className="dark:stroke-gray-400" fontSize={12} />
               <YAxis
-                stroke="var(--text-secondary)"
+                stroke="#6b7280"
+                className="dark:stroke-gray-400"
                 fontSize={12}
                 tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
               />
@@ -226,23 +227,24 @@ function Dashboard({
                 formatter={(value: number) => [formatCurrency(value), "Value"]}
                 labelFormatter={(age) => `Age ${age}`}
                 contentStyle={{
-                  backgroundColor: "var(--bg-surface)",
-                  border: "1px solid var(--border-muted)",
+                  backgroundColor: "white",
+                  border: "1px solid #e5e7eb",
                   borderRadius: "8px",
-                  color: "var(--text-primary)",
+                  color: "#1f2937",
                 }}
+                className="dark:!bg-gray-800 dark:!border-gray-600 dark:!text-white"
               />
               <Area
                 type="monotone"
                 dataKey="value"
-                stroke="var(--accent-primary)"
+                stroke="#3b82f6"
                 fill="url(#colorGradient)"
                 strokeWidth={2}
               />
               <defs>
                 <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="var(--accent-primary)" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="var(--accent-primary)" stopOpacity={0.05} />
+                  <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.05} />
                 </linearGradient>
               </defs>
             </AreaChart>
@@ -250,12 +252,12 @@ function Dashboard({
         </div>
 
         {/* Account Distribution */}
-        <div className="card p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-primary">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Account Distribution
             </h3>
-            <PieChartIcon className="w-5 h-5 text-secondary" />
+            <PieChartIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </div>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
@@ -275,11 +277,12 @@ function Dashboard({
               <Tooltip
                 formatter={(value: number) => [formatCurrency(value), "Balance"]}
                 contentStyle={{
-                  backgroundColor: "var(--bg-surface)",
-                  border: "1px solid var(--border-muted)",
+                  backgroundColor: "white",
+                  border: "1px solid #e5e7eb",
                   borderRadius: "8px",
-                  color: "var(--text-primary)",
+                  color: "#1f2937",
                 }}
+                className="dark:!bg-gray-800 dark:!border-gray-600 dark:!text-white"
               />
               <Legend />
             </PieChart>
@@ -291,19 +294,20 @@ function Dashboard({
       <ScenarioCompare baseInputs={inputs} />
 
       {/* All Projections Comparison */}
-      <div className="card p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-primary">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
             Investment Strategy Comparison
           </h3>
-          <TrendingUp className="w-5 h-5 text-secondary" />
+          <TrendingUp className="w-5 h-5 text-gray-500 dark:text-gray-400" />
         </div>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart data={allProjectionsData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="var(--border-muted)" />
-            <XAxis dataKey="age" stroke="var(--text-secondary)" fontSize={12} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:stroke-gray-600" />
+            <XAxis dataKey="age" stroke="#6b7280" className="dark:stroke-gray-400" fontSize={12} />
             <YAxis
-              stroke="var(--text-secondary)"
+              stroke="#6b7280"
+              className="dark:stroke-gray-400"
               fontSize={12}
               tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
             />
@@ -314,11 +318,12 @@ function Dashboard({
               ]}
               labelFormatter={(age) => `Age ${age}`}
               contentStyle={{
-                backgroundColor: "var(--bg-surface)",
-                border: "1px solid var(--border-muted)",
+                backgroundColor: "white",
+                border: "1px solid #e5e7eb",
                 borderRadius: "8px",
-                color: "var(--text-primary)",
+                color: "#1f2937",
               }}
+              className="dark:!bg-gray-800 dark:!border-gray-600 dark:!text-white"
             />
             <Legend />
             {projections.map((projection) => (
@@ -339,15 +344,15 @@ function Dashboard({
       {/* Detailed Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Account Details */}
-        <div className="card p-6">
-          <h3 className="text-lg font-semibold text-primary mb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
             Account Details
           </h3>
           <div className="space-y-4">
             {accounts.map((account, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-3 bg-surface-alt rounded-lg"
+                className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
               >
                 <div className="flex items-center space-x-3">
                   <div
@@ -358,17 +363,17 @@ function Dashboard({
                     }}
                   />
                   <div>
-                    <p className="font-medium text-primary">{account.name}</p>
-                    <p className="text-sm text-secondary capitalize">
+                    <p className="font-medium text-gray-900 dark:text-white">{account.name}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 capitalize">
                       {account.type}
                     </p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-semibold text-primary">
+                  <p className="font-semibold text-gray-900 dark:text-white">
                     {formatCurrency(account.balance)}
                   </p>
-                  <p className="text-sm text-secondary">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     {((account.balance / metrics.totalBalance) * 100).toFixed(
                       1
                     )}
@@ -381,13 +386,13 @@ function Dashboard({
         </div>
 
         {/* Risk Assessment */}
-        <div className="card p-6">
-          <h3 className="text-lg font-semibold text-primary mb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
             Risk Assessment
           </h3>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-3 bg-surface-alt rounded-lg">
-              <span className="text-secondary">Portfolio Risk Level</span>
+            <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <span className="text-gray-600 dark:text-gray-400">Portfolio Risk Level</span>
               <span
                 className={`px-3 py-1 rounded-full text-sm font-medium ${getRiskColor(
                   metrics.riskLevel
@@ -397,13 +402,13 @@ function Dashboard({
               </span>
             </div>
 
-            <div className="flex items-center justify-between p-3 bg-surface-alt rounded-lg">
-              <span className="text-secondary">Diversification Score</span>
+            <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <span className="text-gray-600 dark:text-gray-400">Diversification Score</span>
               <div className="flex items-center space-x-2">
-                <div className="w-20 bg-border-muted rounded-full h-2">
+                <div className="w-20 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                   <div
                     className="h-2 rounded-full"
-                    style={{ backgroundColor: 'var(--accent-primary)' }}
+                    style={{ backgroundColor: '#3b82f6' }}
                     style={{ width: `${metrics.diversificationScore}%` }}
                   />
                 </div>
@@ -413,15 +418,15 @@ function Dashboard({
               </div>
             </div>
 
-            <div className="flex items-center justify-between p-3 bg-surface-alt rounded-lg">
-              <span className="text-secondary">Goal Achievement</span>
+            <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <span className="text-gray-600 dark:text-gray-400">Goal Achievement</span>
               <div className="flex items-center space-x-2">
                 {metrics.goalProgress >= 100 ? (
-                  <CheckCircle className="w-5 h-5" style={{ color: 'var(--success)' }} />
+                  <CheckCircle className="w-5 h-5 text-green-500" />
                 ) : metrics.goalProgress >= 75 ? (
-                  <TrendingUp className="w-5 h-5" style={{ color: 'var(--warning)' }} />
+                  <TrendingUp className="w-5 h-5 text-yellow-500" />
                 ) : (
-                  <AlertTriangle className="w-5 h-5" style={{ color: 'var(--danger)' }} />
+                  <AlertTriangle className="w-5 h-5 text-red-500" />
                 )}
                 <span className="text-sm font-medium">
                   {metrics.goalProgress.toFixed(1)}%
@@ -429,9 +434,9 @@ function Dashboard({
               </div>
             </div>
 
-            <div className="flex items-center justify-between p-3 bg-surface-alt rounded-lg">
-              <span className="text-secondary">Monthly Growth Rate</span>
-              <span className="text-sm font-medium" style={{ color: 'var(--success)' }}>
+            <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <span className="text-gray-600 dark:text-gray-400">Monthly Growth Rate</span>
+              <span className="text-sm font-medium text-green-500">
                 +{formatCurrency(metrics.monthlyGrowth)}
               </span>
             </div>

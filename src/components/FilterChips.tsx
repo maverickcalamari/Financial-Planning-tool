@@ -18,16 +18,16 @@ export function FilterChips({ filters, onRemoveFilter, onClearAll }: FilterChips
 
   return (
     <div className="flex items-center space-x-2 mb-4 flex-wrap gap-2">
-      <span className="text-sm text-secondary">Filters:</span>
+      <span className="text-sm text-gray-600 dark:text-gray-400">Filters:</span>
       {filters.map((filter) => (
         <div
           key={filter.id}
-          className="flex items-center space-x-2 bg-accent-primary bg-opacity-20 text-accent-primary px-3 py-1 rounded-full text-sm"
+          className="flex items-center space-x-2 bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-sm"
         >
           <span>{filter.label}: {filter.value}</span>
           <button
             onClick={() => onRemoveFilter(filter.id)}
-            className="hover:bg-accent-primary hover:bg-opacity-30 rounded-full p-0.5 transition-colors"
+            className="hover:bg-blue-200 dark:hover:bg-blue-800/30 rounded-full p-0.5 transition-colors"
           >
             <X className="w-3 h-3" />
           </button>
@@ -36,7 +36,7 @@ export function FilterChips({ filters, onRemoveFilter, onClearAll }: FilterChips
       {filters.length > 1 && (
         <button
           onClick={onClearAll}
-          className="text-xs text-secondary hover:text-primary underline"
+          className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 underline"
         >
           Clear all
         </button>

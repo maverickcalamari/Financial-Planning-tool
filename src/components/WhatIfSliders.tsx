@@ -69,8 +69,8 @@ export function WhatIfSliders({ inputs, onInputChange }: WhatIfSlidersProps) {
   ];
 
   return (
-    <div className="card p-6">
-      <h3 className="text-lg font-semibold text-primary mb-6 flex items-center">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
         <span className="mr-2">⚡</span>
         What-If Analysis
       </h3>
@@ -79,7 +79,7 @@ export function WhatIfSliders({ inputs, onInputChange }: WhatIfSlidersProps) {
         {sliders.map((slider) => (
           <div key={slider.key} className="space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-medium text-secondary flex items-center">
+              <label className="text-sm font-medium text-gray-600 dark:text-gray-400 flex items-center">
                 <span className="mr-2">{slider.icon}</span>
                 {slider.label}
               </label>
@@ -131,7 +131,7 @@ export function WhatIfSliders({ inputs, onInputChange }: WhatIfSlidersProps) {
               `}</style>
             </div>
             
-            <div className="flex justify-between text-xs text-secondary">
+            <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
               <span>{formatPercentage(slider.min)}</span>
               <span>{formatPercentage(slider.max)}</span>
             </div>

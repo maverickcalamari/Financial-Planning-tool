@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useCallback } from "react";
 import { FinancialInputs, AccountBalance } from "../types/financial";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import { InputSection } from "./InputSection";
-import { AccountsSection } from "./AccountsSection"; // ✅ matches your file
+import { AccountsSection } from "./AccountsSection";
+import { RestorePointManager } from "./RestorePointManager";
 import Dashboard from "./Dashboard";
 import { ExportSection } from "./ExportSection";
 import { generateInvestmentProjections } from "../utils/calculations";
@@ -11,12 +13,13 @@ import { ThemeSwitcher } from "./ThemeSwitcher";
 import { CommandPalette } from "./CommandPalette";
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'inputs' | 'accounts' | 'export'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'inputs' | 'accounts' | 'restore' | 'export'>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [focusedMetric, setFocusedMetric] = useState<string | null>(null);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
 
-  const [inputs, setInputs] = useState<FinancialInputs>({
+  // Use localStorage for persistent data
+  const [inputs, setInputs] = useLocalStorage<FinancialInputs>('financial-inputs', {
     goalAmount: 250000,
     currentAge: 25,
     targetAge: 35,
@@ -28,7 +31,7 @@ function App() {
     taxRate: 0.15
   });
 
-  const [accounts, setAccounts] = useState<AccountBalance[]>([
+  const [accounts, setAccounts] = useLocalStorage<AccountBalance[]>('financial-accounts', [
     { name: 'HYSA (Marcus)', balance: 3500, type: 'savings', color: '#3B82F6' },
     { name: 'Roth IRA (Stash)', balance: 7000, type: 'retirement', color: '#8B5CF6' },
     { name: 'Brokerage (Schwab)', balance: 4200, type: 'investment', color: '#10B981' },
@@ -65,6 +68,19 @@ function App() {
     ));
   };
 
+  const handleAddAccount = (account: AccountBalance) => {
+    setAccounts(prev => [...prev, account]);
+  };
+
+  const handleRemoveAccount = (index: number) => {
+    setAccounts(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleRestoreData = (restoredInputs: FinancialInputs, restoredAccounts: AccountBalance[]) => {
+    setInputs(restoredInputs);
+    setAccounts(restoredAccounts);
+  };
+
   const handleAccountRename = (index: number, newName: string) => {
     setAccounts(prev => prev.map((account, i) =>
       i === index ? { ...account, name: newName } : account
@@ -72,7 +88,6 @@ function App() {
   };
 
   const handleMetricClick = (metricId: string) => {
-    console.log("Focused Metric:", metricId);
     setFocusedMetric(metricId);
   };
 
@@ -85,6 +100,7 @@ function App() {
     { id: 'dashboard', name: 'Dashboard', icon: BarChart3 },
     { id: 'inputs', name: 'Parameters', icon: Settings },
     { id: 'accounts', name: 'Accounts', icon: Calculator },
+    { id: 'restore', name: 'Restore Points', icon: Save },
     { id: 'export', name: 'Export', icon: Download },
   ];
 
@@ -101,7 +117,18 @@ function App() {
       case 'inputs':
         return <InputSection inputs={inputs} onInputChange={handleInputChange} />;
       case 'accounts':
-        return <AccountsSection accounts={accounts} onAccountChange={handleAccountChange} onAccountRename={handleAccountRename} />;
+        return <AccountsSection 
+          accounts={accounts} 
+          onAccountChange={handleAccountChange} 
+          onAddAccount={handleAddAccount}
+          onRemoveAccount={handleRemoveAccount}
+        />;
+      case 'restore':
+        return <RestorePointManager 
+          inputs={inputs}
+          accounts={accounts}
+          onRestore={handleRestoreData}
+        />;
       case 'export':
         return <ExportSection inputs={inputs} accounts={accounts} projections={projections} />;
       default:
@@ -110,18 +137,24 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--bg-canvas)', color: 'var(--text-primary)' }}>
-      <div className="flex items-center justify-between px-4 py-3 border-b" style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-muted)' }}>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+      <div className="flex items-center justify-between px-4 py-3 border-b bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
         <div className="flex items-center gap-3">
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden">
-            {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {sidebarOpen ? (
+              <X className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+            ) : (
+              <Menu className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+            )}
           </button>
-          <h1 className="text-xl font-bold capitalize">{activeTab}</h1>
+          <h1 className="text-xl font-bold capitalize text-gray-900 dark:text-white">
+            {activeTab === 'restore' ? 'Restore Points' : activeTab}
+          </h1>
         </div>
         <div className="flex items-center space-x-3">
           <button
             onClick={() => setCommandPaletteOpen(true)}
-            className="text-sm text-secondary hover:text-primary transition-colors"
+            className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors px-2 py-1 rounded"
           >
             ⌘K
           </button>
@@ -130,7 +163,7 @@ function App() {
       </div>
 
       <div className="flex">
-        <aside className={`fixed lg:static top-0 left-0 h-full shadow-lg lg:shadow-none z-40 transform transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 w-64 p-4`} style={{ backgroundColor: 'var(--bg-surface)' }}>
+        <aside className={`fixed lg:static top-0 left-0 h-full shadow-lg lg:shadow-none z-40 transform transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 w-64 p-4 bg-white dark:bg-gray-800`}>
           <nav className="space-y-2 mt-8">
             {navigation.map(item => {
               const Icon = item.icon;
@@ -143,10 +176,9 @@ function App() {
                   }}
                   className={`flex items-center gap-3 px-4 py-2 rounded-lg w-full text-left ${
                     activeTab === item.id
-                      ? "text-white"
-                      : "hover:bg-surface-alt transition-colors"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                   }`}
-                  style={activeTab === item.id ? { backgroundColor: 'var(--accent-primary)' } : { color: 'var(--text-primary)' }}
                 >
                   <Icon className="h-5 w-5" />
                   {item.name}
@@ -155,6 +187,14 @@ function App() {
             })}
           </nav>
         </aside>
+
+        {/* Overlay for mobile */}
+        {sidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
 
         <main className="flex-1 p-4">
           {renderContent()}

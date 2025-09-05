@@ -85,28 +85,28 @@ export function KPIStrip({ kpis, onKPIClick }: KPIStripProps) {
             <button
               key={kpi.id}
               onClick={() => handleKPIClick(kpi.id)}
-              className="card card-hover p-4 text-left h-24 flex flex-col justify-between group focus:outline-none"
+              className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 card-hover p-4 text-left h-24 flex flex-col justify-between group focus:outline-none"
               style={{ minHeight: '96px' }}
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <div className="text-kpi-label mb-1">{kpi.label}</div>
+                  <div className="text-kpi-label mb-1 text-gray-600 dark:text-gray-400">{kpi.label}</div>
                   <div className="text-kpi" style={{ color: kpi.color }}>
                     {formatValue(kpi.value, kpi.format)}
                   </div>
                 </div>
                 <div className="flex flex-col items-end space-y-1">
-                  <Icon className="w-4 h-4 text-gray-400" />
+                  <Icon className="w-4 h-4 text-gray-400 dark:text-gray-500" />
                   {renderSparkline(kpi.sparklineData, kpi.color)}
                 </div>
               </div>
               
               <div className="flex items-center justify-between mt-2">
                 <div className="flex space-x-3">
-                  <div className="text-xs text-gray-400">
+                  <div className="text-xs text-gray-400 dark:text-gray-500">
                     30d {renderDelta(kpi.delta30)}
                   </div>
-                  <div className="text-xs text-gray-400">
+                  <div className="text-xs text-gray-400 dark:text-gray-500">
                     90d {renderDelta(kpi.delta90)}
                   </div>
                 </div>

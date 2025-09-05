@@ -42,15 +42,15 @@ export function KPIDetailPanel({ kpiId, kpi, onClose }: KPIDetailPanelProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-end">
-      <div className="bg-surface w-96 h-full shadow-2xl overflow-y-auto">
-        <div className="p-6 border-b border-muted">
+      <div className="bg-white dark:bg-gray-800 w-96 h-full shadow-2xl overflow-y-auto">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-primary">{kpi.label} Details</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{kpi.label} Details</h2>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-surface-alt rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
             </button>
           </div>
         </div>
@@ -61,19 +61,19 @@ export function KPIDetailPanel({ kpiId, kpi, onClose }: KPIDetailPanelProps) {
             <div className="text-3xl font-bold mb-2" style={{ color: kpi.color }}>
               {kpi.format === 'currency' ? formatCurrency(kpi.value) : kpi.value.toLocaleString()}
             </div>
-            <div className="text-sm text-secondary">Current Value</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Current Value</div>
           </div>
 
           {/* Trend Chart */}
-          <div className="bg-surface-alt rounded-lg p-4">
-            <h3 className="text-sm font-medium text-primary mb-3">90-Day Trend</h3>
+          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+            <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">90-Day Trend</h3>
             <div className="h-32 flex items-end justify-between space-x-1">
               {kpi.sparklineData.map((value, index) => {
                 const height = (value / Math.max(...kpi.sparklineData)) * 100;
                 return (
                   <div
                     key={index}
-                    className="bg-accent-primary rounded-t"
+                    className="rounded-t"
                     style={{ 
                       height: `${height}%`,
                       width: `${100 / kpi.sparklineData.length - 2}%`,
@@ -88,15 +88,15 @@ export function KPIDetailPanel({ kpiId, kpi, onClose }: KPIDetailPanelProps) {
 
           {/* Performance Metrics */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-surface-alt rounded-lg p-3">
-              <div className="text-sm text-secondary">30-Day Change</div>
-              <div className={`text-lg font-semibold ${kpi.delta30 >= 0 ? 'text-success' : 'text-danger'}`}>
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
+              <div className="text-sm text-gray-600 dark:text-gray-400">30-Day Change</div>
+              <div className={`text-lg font-semibold ${kpi.delta30 >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                 {kpi.delta30 >= 0 ? '+' : ''}{kpi.delta30.toFixed(1)}%
               </div>
             </div>
-            <div className="bg-surface-alt rounded-lg p-3">
-              <div className="text-sm text-secondary">90-Day Change</div>
-              <div className={`text-lg font-semibold ${kpi.delta90 >= 0 ? 'text-success' : 'text-danger'}`}>
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
+              <div className="text-sm text-gray-600 dark:text-gray-400">90-Day Change</div>
+              <div className={`text-lg font-semibold ${kpi.delta90 >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                 {kpi.delta90 >= 0 ? '+' : ''}{kpi.delta90.toFixed(1)}%
               </div>
             </div>
@@ -104,17 +104,17 @@ export function KPIDetailPanel({ kpiId, kpi, onClose }: KPIDetailPanelProps) {
 
           {/* Recommendations */}
           <div>
-            <h3 className="text-sm font-medium text-primary mb-3 flex items-center">
+            <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3 flex items-center">
               <TrendingUp className="w-4 h-4 mr-2" />
               Recommended Actions
             </h3>
             <div className="space-y-3">
               {recommendations.map((rec, index) => (
-                <div key={index} className="bg-surface-alt rounded-lg p-3">
+                <div key={index} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
                   <div className="flex items-start space-x-3">
                     <div className={`p-1 rounded-full mt-0.5 ${
-                      rec.priority === 'high' ? 'bg-danger' : 
-                      rec.priority === 'medium' ? 'bg-warning' : 'bg-success'
+                      rec.priority === 'high' ? 'bg-red-500' : 
+                      rec.priority === 'medium' ? 'bg-yellow-500' : 'bg-green-500'
                     }`}>
                       {rec.priority === 'high' ? (
                         <AlertCircle className="w-3 h-3 text-white" />
@@ -123,8 +123,8 @@ export function KPIDetailPanel({ kpiId, kpi, onClose }: KPIDetailPanelProps) {
                       )}
                     </div>
                     <div className="flex-1">
-                      <div className="text-sm text-primary font-medium">{rec.text}</div>
-                      <div className="text-xs text-secondary mt-1">Expected impact: {rec.impact}</div>
+                      <div className="text-sm text-gray-900 dark:text-white font-medium">{rec.text}</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Expected impact: {rec.impact}</div>
                     </div>
                   </div>
                 </div>
@@ -137,7 +137,7 @@ export function KPIDetailPanel({ kpiId, kpi, onClose }: KPIDetailPanelProps) {
             <button className="w-full btn-primary py-2 px-4 text-sm">
               Apply Recommendation
             </button>
-            <button className="w-full bg-surface-alt text-primary py-2 px-4 rounded-lg text-sm hover:bg-border-muted transition-colors">
+            <button className="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white py-2 px-4 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
               Schedule Review
             </button>
           </div>
