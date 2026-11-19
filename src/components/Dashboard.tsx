@@ -408,8 +408,7 @@ function Dashboard({
                 <div className="w-20 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                   <div
                     className="h-2 rounded-full"
-                    style={{ backgroundColor: '#3b82f6' }}
-                    style={{ width: `${metrics.diversificationScore}%` }}
+                    style={{ backgroundColor: '#3b82f6', width: `${metrics.diversificationScore}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium">
