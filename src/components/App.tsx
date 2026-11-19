@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { FinancialInputs, AccountBalance } from "../types/financial";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { InputSection } from "./InputSection";
@@ -8,14 +7,13 @@ import { RestorePointManager } from "./RestorePointManager";
 import Dashboard from "./Dashboard";
 import { ExportSection } from "./ExportSection";
 import { generateInvestmentProjections } from "../utils/calculations";
-import { Calculator, BarChart3, Settings, Download, Menu, X } from "lucide-react";
+import { Calculator, BarChart3, Settings, Download, Menu, X, Save } from "lucide-react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { CommandPalette } from "./CommandPalette";
 
 function App() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'inputs' | 'accounts' | 'restore' | 'export'>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [focusedMetric, setFocusedMetric] = useState<string | null>(null);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
 
   // Use localStorage for persistent data
@@ -81,16 +79,6 @@ function App() {
     setAccounts(restoredAccounts);
   };
 
-  const handleAccountRename = (index: number, newName: string) => {
-    setAccounts(prev => prev.map((account, i) =>
-      i === index ? { ...account, name: newName } : account
-    ));
-  };
-
-  const handleMetricClick = (metricId: string) => {
-    setFocusedMetric(metricId);
-  };
-
   const handleNavigate = useCallback((tab: string) => {
     setActiveTab(tab as any);
     setSidebarOpen(false);
@@ -111,7 +99,6 @@ function App() {
           inputs={inputs} 
           accounts={accounts} 
           projections={projections} 
-          onMetricClick={handleMetricClick}
           onInputChange={handleInputChange}
         />;
       case 'inputs':

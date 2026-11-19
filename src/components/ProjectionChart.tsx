@@ -1,4 +1,3 @@
-import React from 'react';
 import { InvestmentOption } from '../types/financial';
 import { formatCurrency } from '../utils/calculations';
 

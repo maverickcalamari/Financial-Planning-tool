@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FinancialInputs, AccountBalance } from '../types/financial';
 import { useRestorePoint } from '../hooks/useRestorePoint';
 import { formatCurrency } from '../utils/calculations';

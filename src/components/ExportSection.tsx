@@ -1,6 +1,5 @@
-import React from 'react';
 import { FinancialInputs, AccountBalance, InvestmentOption, ExportData } from '../types/financial';
-import { exportToCSV, exportToJSON, calculateAccountProgress, formatCurrency } from '../utils/calculations';
+import { exportToCSV, exportToJSON, calculateAccountProgress } from '../utils/calculations';
 import { Download, FileText, Database } from 'lucide-react';
 
 interface ExportSectionProps {

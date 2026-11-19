@@ -1,4 +1,3 @@
-import React from 'react';
 import { FinancialInputs } from '../types/financial';
 import { formatPercentage } from '../utils/calculations';
 

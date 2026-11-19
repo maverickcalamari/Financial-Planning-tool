@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from "react";
 import { AccountBalance } from '../types/financial';
 import { formatCurrency } from '../utils/calculations';
 import { PiggyBank, TrendingUp, Shield, DollarSign, Plus, Trash2 } from 'lucide-react';

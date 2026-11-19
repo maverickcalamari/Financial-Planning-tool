@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FinancialInputs, InvestmentOption } from '../types/financial';
+import { useState } from 'react';
+import { FinancialInputs } from '../types/financial';
 import { generateInvestmentProjections, formatCurrency } from '../utils/calculations';
 import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
@@ -141,7 +141,6 @@ export function ScenarioCompare({ baseInputs }: ScenarioCompareProps) {
                 borderRadius: '8px',
                 color: '#1f2937'
               }}
-              className="dark:!bg-gray-800 dark:!border-gray-600 dark:!text-white"
             />
             <Legend />
             {scenarios.map(scenario => (

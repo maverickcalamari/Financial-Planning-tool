@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TrendingUp, TrendingDown, DollarSign, Target, Shield, Calendar } from 'lucide-react';
+import { TrendingUp, TrendingDown } from 'lucide-react';
 import { formatCurrency, formatPercentage } from '../utils/calculations';
 import { KPIDetailPanel } from './KPIDetailPanel';
 

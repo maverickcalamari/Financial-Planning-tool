@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import {
   FinancialInputs,
@@ -232,7 +231,6 @@ function Dashboard({
                   borderRadius: "8px",
                   color: "#1f2937",
                 }}
-                className="dark:!bg-gray-800 dark:!border-gray-600 dark:!text-white"
               />
               <Area
                 type="monotone"
@@ -282,7 +280,6 @@ function Dashboard({
                   borderRadius: "8px",
                   color: "#1f2937",
                 }}
-                className="dark:!bg-gray-800 dark:!border-gray-600 dark:!text-white"
               />
               <Legend />
             </PieChart>
@@ -323,7 +320,6 @@ function Dashboard({
                 borderRadius: "8px",
                 color: "#1f2937",
               }}
-              className="dark:!bg-gray-800 dark:!border-gray-600 dark:!text-white"
             />
             <Legend />
             {projections.map((projection) => (

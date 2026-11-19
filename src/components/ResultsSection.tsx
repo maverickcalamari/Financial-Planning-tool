@@ -1,4 +1,3 @@
-import React from 'react';
 import { FinancialInputs, AccountBalance, InvestmentOption } from '../types/financial';
 import { calculateRecommendedSavings, calculateAccountProgress, formatCurrency, formatPercentage } from '../utils/calculations';
 import { CheckCircle, AlertTriangle, TrendingUp, Target } from 'lucide-react';

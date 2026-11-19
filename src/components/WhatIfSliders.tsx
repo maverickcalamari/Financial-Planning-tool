@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { FinancialInputs } from '../types/financial';
 import { formatPercentage } from '../utils/calculations';
 import { debounce } from '../utils/debounce';
@@ -107,7 +107,7 @@ export function WhatIfSliders({ inputs, onInputChange }: WhatIfSlidersProps) {
                   background: `linear-gradient(to right, ${slider.color}40 0%, ${slider.color} 100%)`
                 }}
               />
-              <style jsx>{`
+              <style>{`
                 input[type="range"]::-webkit-slider-thumb {
                   appearance: none;
                   height: 20px;

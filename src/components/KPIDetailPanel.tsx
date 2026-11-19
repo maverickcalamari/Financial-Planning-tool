@@ -1,4 +1,3 @@
-import React from 'react';
 import { X, TrendingUp, AlertCircle, CheckCircle } from 'lucide-react';
 import { formatCurrency } from '../utils/calculations';
 
