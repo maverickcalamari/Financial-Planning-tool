@@ -100,9 +100,6 @@ function Dashboard({
       id: 'totalBalance',
       label: 'Total Balance',
       value: metrics.totalBalance,
-      delta30: 5.2,
-      delta90: 12.8,
-      sparklineData: [85000, 87000, 89000, 91000, 93000, 95000, metrics.totalBalance],
       icon: DollarSign,
       format: 'currency' as const,
       color: '#2F81F7'
@@ -111,9 +108,6 @@ function Dashboard({
       id: 'goalProgress',
       label: 'Goal Progress',
       value: metrics.goalProgress,
-      delta30: 2.1,
-      delta90: 8.5,
-      sparklineData: [65, 68, 71, 74, 77, 80, metrics.goalProgress],
       icon: Target,
       format: 'percentage' as const,
       color: '#22C55E'
@@ -122,9 +116,6 @@ function Dashboard({
       id: 'monthlyGrowth',
       label: 'Monthly Growth',
       value: metrics.monthlyGrowth,
-      delta30: 1.8,
-      delta90: 4.2,
-      sparklineData: [800, 850, 900, 950, 1000, 1050, metrics.monthlyGrowth],
       icon: TrendingUp,
       format: 'currency' as const,
       color: '#F59E0B'
@@ -133,9 +124,6 @@ function Dashboard({
       id: 'diversification',
       label: 'Diversification',
       value: metrics.diversificationScore,
-      delta30: 0.5,
-      delta90: 2.1,
-      sparklineData: [75, 76, 78, 80, 82, 84, metrics.diversificationScore],
       icon: Shield,
       format: 'percentage' as const,
       color: '#8B5CF6'
@@ -144,9 +132,6 @@ function Dashboard({
       id: 'yearsToGoal',
       label: 'Years to Goal',
       value: inputs.targetAge - inputs.currentAge,
-      delta30: 0,
-      delta90: -0.2,
-      sparklineData: [10, 10, 9.8, 9.6, 9.4, 9.2, inputs.targetAge - inputs.currentAge],
       icon: Calendar,
       format: 'number' as const,
       color: '#EF4444'
@@ -155,9 +140,6 @@ function Dashboard({
       id: 'riskLevel',
       label: 'Risk Score',
       value: metrics.riskLevel === 'low' ? 30 : metrics.riskLevel === 'medium' ? 60 : 90,
-      delta30: 5,
-      delta90: 10,
-      sparklineData: [25, 28, 32, 35, 38, 42, metrics.riskLevel === 'low' ? 30 : metrics.riskLevel === 'medium' ? 60 : 90],
       icon: Shield,
       format: 'number' as const,
       color: metrics.riskLevel === 'low' ? '#22C55E' : metrics.riskLevel === 'medium' ? '#F59E0B' : '#EF4444'

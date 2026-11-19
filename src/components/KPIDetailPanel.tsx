@@ -7,9 +7,6 @@ interface KPIDetailPanelProps {
     id: string;
     label: string;
     value: number;
-    delta30: number;
-    delta90: number;
-    sparklineData: number[];
     format: 'currency' | 'percentage' | 'number';
     color: string;
   };
@@ -61,44 +58,6 @@ export function KPIDetailPanel({ kpiId, kpi, onClose }: KPIDetailPanelProps) {
               {kpi.format === 'currency' ? formatCurrency(kpi.value) : kpi.value.toLocaleString()}
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400">Current Value</div>
-          </div>
-
-          {/* Trend Chart */}
-          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-            <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">90-Day Trend</h3>
-            <div className="h-32 flex items-end justify-between space-x-1">
-              {kpi.sparklineData.map((value, index) => {
-                const height = (value / Math.max(...kpi.sparklineData)) * 100;
-                return (
-                  <div
-                    key={index}
-                    className="rounded-t"
-                    style={{ 
-                      height: `${height}%`,
-                      width: `${100 / kpi.sparklineData.length - 2}%`,
-                      backgroundColor: kpi.color,
-                      opacity: 0.7
-                    }}
-                  />
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Performance Metrics */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
-              <div className="text-sm text-gray-600 dark:text-gray-400">30-Day Change</div>
-              <div className={`text-lg font-semibold ${kpi.delta30 >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                {kpi.delta30 >= 0 ? '+' : ''}{kpi.delta30.toFixed(1)}%
-              </div>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
-              <div className="text-sm text-gray-600 dark:text-gray-400">90-Day Change</div>
-              <div className={`text-lg font-semibold ${kpi.delta90 >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                {kpi.delta90 >= 0 ? '+' : ''}{kpi.delta90.toFixed(1)}%
-              </div>
-            </div>
           </div>
 
           {/* Recommendations */}

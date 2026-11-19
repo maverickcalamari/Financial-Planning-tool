@@ -127,7 +127,7 @@ function App() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       <div className="flex items-center justify-between px-4 py-3 border-b bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
         <div className="flex items-center gap-3">
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden">
+          <button type="button" aria-label="Toggle navigation" aria-expanded={sidebarOpen} onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden">
             {sidebarOpen ? (
               <X className="h-5 w-5 text-gray-600 dark:text-gray-300" />
             ) : (
@@ -183,7 +183,7 @@ function App() {
           />
         )}
 
-        <main className="flex-1 p-4">
+        <main className="min-w-0 flex-1 p-4">
           {renderContent()}
         </main>
       </div>
